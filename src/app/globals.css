@@ -16,6 +16,7 @@
 
 html {
     height: 100%;
+    scroll-restoration: manual;
 }
 
 html,
@@ -68,6 +69,12 @@ img {
 .content-above-hero {
     position: relative;
     z-index: 1;
+}
+
+/* Selection */
+::selection {
+    background: var(--accent);
+    color: var(--bg);
 }
 
 /* Scrollbar */

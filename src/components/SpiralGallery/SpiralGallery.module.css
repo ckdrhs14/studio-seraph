@@ -86,11 +86,11 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .thumb:hover .thumbImg {
     transform: scale(1.05);
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .thumbOverlay {

@@ -89,10 +89,10 @@ export default function Cursor() {
           : currentStretch.current.angle;
 
       // Stretch: scale along movement direction, squish perpendicular
-      const maxStretch = 0.4;
-      const stretchAmount = Math.min(speed / 60, maxStretch);
+      const maxStretch = 1.2;
+      const stretchAmount = Math.min(speed / 15, maxStretch);
       const targetSx = 1 + stretchAmount;
-      const targetSy = 1 - stretchAmount * 0.5;
+      const targetSy = 1 - stretchAmount * 0.6;
 
       // Lerp stretch values for smooth transition
       currentStretch.current.sx +=

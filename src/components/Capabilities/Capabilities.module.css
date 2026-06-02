@@ -26,7 +26,6 @@
     align-items: center;
     padding: 2.08vw 0;
     border-bottom: 1px solid rgba(210, 210, 210, 0.15);
-    cursor: pointer;
     position: relative;
     transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }

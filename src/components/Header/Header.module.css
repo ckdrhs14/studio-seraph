@@ -139,6 +139,11 @@
     width: 2.5vw;
     height: 2.5vw;
     cursor: none;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.close:hover {
+    transform: rotate(90deg);
 }
 
 .close span {
@@ -147,6 +152,11 @@
     height: 1px;
     background: var(--text);
     position: absolute;
+    transition: background 0.3s ease;
+}
+
+.close:hover span {
+    background: var(--accent);
 }
 
 .close span:first-child {
@@ -183,16 +193,18 @@
     text-transform: uppercase;
     letter-spacing: -0.04em;
     line-height: 100%;
-    color: var(--text);
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
     display: inline-block;
+    background: linear-gradient(to right, var(--accent) 50%, var(--text) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .nav a:hover {
-    color: var(--accent);
-    transform: translateX(1vw);
+    background-position: 0% 0;
 }
 
 .navFooter {

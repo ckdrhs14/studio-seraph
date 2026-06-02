@@ -11,11 +11,11 @@ import styles from "./Capabilities.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const ITEMS = [
-    { num: "01", title: "PREGENCY" },
-    { num: "02", title: "BABY" },
-    { num: "03", title: "FAMILY" },
-    { num: "04", title: "PET FAM" },
-    { num: "05", title: "ABOUT" }
+    { num: "01", title: "PREGENCY", href: "/pregency" },
+    { num: "02", title: "BABY", href: "/baby" },
+    { num: "03", title: "FAMILY", href: "/family" },
+    { num: "04", title: "PET FAM", href: "/pet-fam" },
+    { num: "05", title: "ABOUT", href: "/about" },
 ];
 
 export default function Capabilities() {
@@ -69,12 +69,14 @@ export default function Capabilities() {
 
             <ul className={styles.list}>
                 {ITEMS.map((item) => (
-                    <li key={item.num} className={styles.item}>
-                        <span className={styles.num}>{item.num}</span>
-                        <PixelText className={styles.titleWrap} trigger="inview" duration={900} startPixel={20}>
-                            <span className={styles.title}>{item.title} <StarIcon size={56} className={styles.starIcon} /></span>
-                        </PixelText>
-                        <span className={styles.arrow}>&#8599;</span>
+                    <li key={item.num}>
+                        <a href={item.href} className={styles.item}>
+                            <span className={styles.num}>{item.num}</span>
+                            <PixelText className={styles.titleWrap} trigger="inview" duration={900} startPixel={20}>
+                                <span className={styles.title}>{item.title} <StarIcon size={56} className={styles.starIcon} /></span>
+                            </PixelText>
+                            <span className={styles.arrow}>&#8599;</span>
+                        </a>
                     </li>
                 ))}
             </ul>
