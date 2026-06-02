@@ -1,0 +1,252 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25vw 2.08vw;
+}
+
+.logo {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 1.25vw;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.35vw;
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+}
+
+.dot {
+    width: 0.4vw;
+    height: 0.4vw;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.time {
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+}
+
+.time,
+.status,
+.logo {
+    transition: opacity 0.3s ease;
+}
+
+.time:hover,
+.status:hover,
+.logo:hover {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.burger {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+    padding: 0.5vw;
+    cursor: pointer;
+    z-index: 102;
+    position: relative;
+}
+
+.burger span {
+    display: block;
+    width: 1.6vw;
+    height: 1px;
+    background: var(--text);
+    transition:
+        transform 0.4s ease,
+        width 0.3s ease,
+        opacity 0.4s ease;
+}
+
+.burger span:nth-child(2) {
+    width: 1.067vw;
+}
+
+.burger span:last-child {
+    width: 0.53vw;
+}
+
+.burger:hover span:nth-child(2),
+.burger:hover span:last-child {
+    width: 1.6vw;
+}
+
+.burgerOpen span:first-child {
+    transform: translateY(0.35vw) rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+    opacity: 0;
+}
+
+.burgerOpen span:last-child {
+    width: 1.6vw;
+    transform: translateY(-0.25vw) rotate(-45deg);
+}
+
+/* Nav overlay — separate from header blend mode */
+.nav {
+    position: fixed;
+    inset: 0;
+    z-index: 101;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4vw;
+    padding: 6vw 8vw;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    top: 1.25vw;
+    right: 2.08vw;
+    z-index: 102;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5vw;
+    height: 2.5vw;
+    cursor: none;
+}
+
+.close span {
+    display: block;
+    width: 1.6vw;
+    height: 1px;
+    background: var(--text);
+    position: absolute;
+}
+
+.close span:first-child {
+    transform: rotate(45deg);
+}
+
+.close span:last-child {
+    transform: rotate(-45deg);
+}
+
+.navOpen {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vw;
+    width: 100%;
+    max-width: 80vw;
+}
+
+.navItem {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.nav a {
+    font-size: 5vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 100%;
+    color: var(--text);
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+    display: inline-block;
+}
+
+.nav a:hover {
+    color: var(--accent);
+    transform: translateX(1vw);
+}
+
+.navFooter {
+    display: flex;
+    gap: 3vw;
+    align-items: center;
+}
+
+.navFooter span {
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 4vw 5vw;
+    }
+
+    .logo {
+        font-size: 2.8vw;
+    }
+
+    .status,
+    .time {
+        display: none;
+    }
+
+    .burger span {
+        width: 6vw;
+    }
+
+    .close {
+        top: 4vw;
+        right: 5vw;
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .close span {
+        width: 6vw;
+    }
+
+    .nav a {
+        font-size: 10vw;
+    }
+
+    .nav ul {
+        gap: 4vw;
+    }
+
+    .navFooter span {
+        font-size: 2.5vw;
+    }
+}

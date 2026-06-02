@@ -1,0 +1,110 @@
+.hero {
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.inner {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3.33vw;
+    will-change: transform, opacity;
+}
+
+.titleWrap {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-family: var(--font-sans);
+    font-size: 9.375vw;
+    font-weight: 800;
+    line-height: 84%;
+    letter-spacing: -0.1vw;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.desc {
+    position: relative;
+    z-index: 1;
+    margin-top: 2.5vw;
+    max-width: 30vw;
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    opacity: 0;
+}
+
+.scrollIndicator {
+    z-index: 1;
+    position: absolute;
+    bottom: 2.5vw;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6vw;
+    opacity: 0;
+}
+
+.scrollLine {
+    width: 1px;
+    height: 3.5vw;
+    background: var(--text);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scrollLabel {
+    font-family: var(--font-mono);
+    font-size: 0.625vw;
+    font-weight: 300;
+    letter-spacing: -0.05em;
+    color: var(--text);
+}
+
+@keyframes scrollPulse {
+    0%,
+    100% {
+        transform: scaleY(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scaleY(0.2);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 0 6vw;
+    }
+
+    .title {
+        font-size: 13vw;
+        letter-spacing: -0.3vw;
+    }
+
+    .desc {
+        max-width: 80vw;
+        font-size: 3.2vw;
+        margin-top: 6vw;
+    }
+
+    .scrollLabel {
+        font-size: 2.5vw;
+    }
+
+    .scrollLine {
+        height: 10vw;
+    }
+}

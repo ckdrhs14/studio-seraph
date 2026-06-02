@@ -1,0 +1,105 @@
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.hiding {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.02);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vw;
+}
+
+.icons {
+    display: flex;
+    gap: 1.2vw;
+}
+
+.icon {
+    font-size: 1.667vw;
+    color: var(--text);
+    opacity: 0;
+    transform: scale(0) rotate(-20deg);
+    animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.title {
+    font-family: var(--font-sans);
+    font-size: 10vw;
+    font-weight: 800;
+    letter-spacing: -0.12vw;
+    line-height: 84%;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.barWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vw;
+    width: 60vw;
+}
+
+.bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(210, 210, 210, 0.15);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.barFill {
+    height: 100%;
+    background: var(--text);
+    transition: none;
+}
+
+.pct {
+    font-family: var(--font-mono);
+    font-size: 0.625vw;
+    font-weight: 300;
+    color: var(--text);
+    opacity: 0.5;
+    letter-spacing: 0.015em;
+}
+
+@media (max-width: 768px) {
+    .icon {
+        font-size: 6vw;
+    }
+
+    .title {
+        font-size: 8vw;
+        letter-spacing: -0.3vw;
+    }
+
+    .barWrap {
+        width: 60vw;
+    }
+
+    .pct {
+        font-size: 2.5vw;
+    }
+}

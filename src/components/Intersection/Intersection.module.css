@@ -1,0 +1,139 @@
+.intersection {
+    padding: 8.33vw 3.33vw;
+    position: relative;
+    z-index: 1;
+}
+
+.headingWrap {
+    margin-bottom: 5vw;
+}
+
+.heading {
+    font-size: 6.25vw;
+    font-weight: 800;
+    line-height: 100%;
+    letter-spacing: -0.1vw;
+    text-transform: uppercase;
+}
+
+.subHeading {
+    font-size: 3.33vw;
+    font-weight: 800;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: -0.08vw;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3.33vw;
+    align-items: center;
+    margin-bottom: 8.33vw;
+}
+
+.imageWrap {
+    overflow: hidden;
+    border-radius: 0.42vw;
+}
+
+.imageInner {
+    width: 100%;
+    will-change: transform;
+}
+
+.video {
+    width: 100%;
+    display: block;
+    border-radius: 0.42vw;
+    object-fit: cover;
+}
+
+.textBlock {
+    padding-left: 1.667vw;
+}
+
+.body {
+    font-size: 1.04vw;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.01em;
+    opacity: 0;
+}
+
+.subSection {
+    padding-top: 5vw;
+    border-top: 1px solid rgba(210, 210, 210, 0.15);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.33vw;
+}
+
+.subBody {
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    margin-bottom: 1.667vw;
+}
+
+.link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .intersection {
+        padding: 12vw 6vw;
+    }
+
+    .headingWrap {
+        margin-bottom: 8vw;
+    }
+
+    .heading {
+        font-size: 10vw;
+        letter-spacing: -0.3vw;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+        gap: 6vw;
+    }
+
+    .textBlock {
+        padding-left: 0;
+    }
+
+    .body {
+        font-size: 3.2vw;
+    }
+
+    .subSection {
+        grid-template-columns: 1fr;
+        gap: 4vw;
+    }
+
+    .subHeading {
+        font-size: 7vw;
+    }
+
+    .subBody {
+        font-size: 3.2vw;
+    }
+
+    .link {
+        font-size: 2.8vw;
+    }
+}

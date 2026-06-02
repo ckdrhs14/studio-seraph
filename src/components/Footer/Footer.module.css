@@ -1,0 +1,198 @@
+.footer {
+    position: relative;
+    z-index: 1;
+    padding: 0 3.33vw 2.5vw;
+    overflow: hidden;
+}
+
+/* Big brand at top */
+.brandTop {
+    padding: 4vw 0 2vw;
+    position: relative;
+    z-index: 1;
+}
+
+.brandBig {
+    font-family: var(--font-sans);
+    font-size: 6.25vw;
+    font-weight: 800;
+    line-height: 100%;
+    letter-spacing: -0.1vw;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+}
+
+/* Content: left and right columns with 3D model in center */
+.content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    min-height: 60vh;
+    padding: 4vw 0;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+    max-width: 25vw;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    max-width: 25vw;
+    padding-top: 2vw;
+}
+
+.group {
+    display: flex;
+    gap: 2vw;
+}
+
+.groupLabel {
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    min-width: 6vw;
+    flex-shrink: 0;
+    color: var(--text);
+}
+
+.groupText {
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 500;
+    line-height: 180%;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.7;
+}
+
+.linkList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+}
+
+.linkList a {
+    font-family: var(--font-mono);
+    font-size: 0.729vw;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.7;
+    transition:
+        opacity 0.3s ease,
+        color 0.3s ease;
+}
+
+.linkList a:hover {
+    opacity: 1;
+    color: var(--accent);
+}
+
+.heading {
+    font-size: 3.33vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.08vw;
+    line-height: 84%;
+    margin-bottom: 1.25vw;
+}
+
+.email {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    transition: color 0.3s ease;
+}
+
+.email:hover {
+    color: var(--accent);
+}
+
+/* Bottom bar */
+.bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.667vw;
+    border-top: 1px solid rgba(210, 210, 210, 0.15);
+}
+
+.brand {
+    font-family: var(--font-mono);
+    font-size: 0.625vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+}
+
+.copy {
+    font-family: var(--font-mono);
+    font-size: 0.625vw;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 0 6vw 5vw;
+    }
+
+    .brandBig {
+        font-size: 10vw;
+    }
+
+    .content {
+        flex-direction: column;
+        gap: 8vw;
+    }
+
+    .left,
+    .right {
+        max-width: 100%;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .group {
+        flex-direction: column;
+        gap: 0.5vw;
+    }
+
+    .groupLabel {
+        font-size: 2.5vw;
+    }
+
+    .groupText,
+    .linkList a {
+        font-size: 2.5vw;
+    }
+
+    .heading {
+        font-size: 8vw;
+    }
+
+    .email {
+        font-size: 2.8vw;
+    }
+
+    .brand,
+    .copy {
+        font-size: 2.5vw;
+    }
+}
