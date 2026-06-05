@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import { noise2D } from "./noise";
 import styles from "./HeroBackground.module.css";
 
-const COLS = 60;
-const ROWS = 35;
+const CELL_SIZE = 32;
 const NOISE_SCALE = 0.025;
 const NOISE_SPEED = 0.0002;
 const LINE_ALPHA = 0.3;
@@ -36,6 +35,8 @@ export default function HeroBackground() {
 
         let w = 0;
         let h = 0;
+        let cols = 0;
+        let rows = 0;
         let points: Point[][] = [];
         let dpr = 1;
 
@@ -49,15 +50,15 @@ export default function HeroBackground() {
             canvas.style.height = `${h}px`;
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            // Build grid
-            const spacingX = w / (COLS - 1);
-            const spacingY = h / (ROWS - 1);
+            // Build grid with uniform square cells
+            cols = Math.ceil(w / CELL_SIZE) + 1;
+            rows = Math.ceil(h / CELL_SIZE) + 1;
             points = [];
-            for (let row = 0; row < ROWS; row++) {
+            for (let row = 0; row < rows; row++) {
                 const rowArr: Point[] = [];
-                for (let col = 0; col < COLS; col++) {
-                    const x = col * spacingX;
-                    const y = row * spacingY;
+                for (let col = 0; col < cols; col++) {
+                    const x = col * CELL_SIZE;
+                    const y = row * CELL_SIZE;
                     rowArr.push({ baseX: x, baseY: y, x, y });
                 }
                 points.push(rowArr);
@@ -119,8 +120,8 @@ export default function HeroBackground() {
             const t = time * NOISE_SPEED;
 
             // Update points with noise + mouse
-            for (let row = 0; row < ROWS; row++) {
-                for (let col = 0; col < COLS; col++) {
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
                     const p = points[row][col];
                     const nx = noise2D(col * NOISE_SCALE + t, row * NOISE_SCALE + t * 0.7);
                     const ny = noise2D(col * NOISE_SCALE + 100 + t * 0.8, row * NOISE_SCALE + 100 + t);
@@ -147,20 +148,20 @@ export default function HeroBackground() {
             // Draw horizontal lines
             ctx.strokeStyle = `rgba(${lineR}, ${lineG}, ${lineB}, ${LINE_ALPHA})`;
             ctx.lineWidth = 0.5;
-            for (let row = 0; row < ROWS; row++) {
+            for (let row = 0; row < rows; row++) {
                 ctx.beginPath();
                 ctx.moveTo(points[row][0].x, points[row][0].y);
-                for (let col = 1; col < COLS; col++) {
+                for (let col = 1; col < cols; col++) {
                     ctx.lineTo(points[row][col].x, points[row][col].y);
                 }
                 ctx.stroke();
             }
 
             // Draw vertical lines
-            for (let col = 0; col < COLS; col++) {
+            for (let col = 0; col < cols; col++) {
                 ctx.beginPath();
                 ctx.moveTo(points[0][col].x, points[0][col].y);
-                for (let row = 1; row < ROWS; row++) {
+                for (let row = 1; row < rows; row++) {
                     ctx.lineTo(points[row][col].x, points[row][col].y);
                 }
                 ctx.stroke();
@@ -168,8 +169,8 @@ export default function HeroBackground() {
 
             // Draw dots at intersections
             ctx.fillStyle = `rgba(${lineR}, ${lineG}, ${lineB}, ${DOT_ALPHA})`;
-            for (let row = 0; row < ROWS; row++) {
-                for (let col = 0; col < COLS; col++) {
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
                     const p = points[row][col];
 
                     // Brighter dots near mouse

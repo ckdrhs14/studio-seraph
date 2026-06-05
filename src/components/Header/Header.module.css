@@ -240,8 +240,35 @@
         display: none;
     }
 
+    .burger {
+        gap: 1.2vw;
+        padding: 2vw;
+    }
+
     .burger span {
         width: 6vw;
+    }
+
+    .burger span:nth-child(2) {
+        width: 4vw;
+    }
+
+    .burger span:last-child {
+        width: 2vw;
+    }
+
+    .burger:hover span:nth-child(2),
+    .burger:hover span:last-child {
+        width: 6vw;
+    }
+
+    .burgerOpen span:first-child {
+        transform: translateY(1.45vw) rotate(45deg);
+    }
+
+    .burgerOpen span:last-child {
+        width: 6vw;
+        transform: translateY(-1vw) rotate(-45deg);
     }
 
     .close {

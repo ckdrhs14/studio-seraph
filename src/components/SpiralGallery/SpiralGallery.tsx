@@ -44,7 +44,7 @@ export default function SpiralGallery() {
     useEffect(() => {
         const updateRadius = () => {
             const vw = window.innerWidth;
-            setRadius(vw < 768 ? 280 : vw * 0.286);
+            setRadius(vw < 768 ? vw * 0.36 : vw * 0.286);
         };
         updateRadius();
         window.addEventListener("resize", updateRadius);

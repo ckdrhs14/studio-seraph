@@ -23,9 +23,10 @@ export default function FooterModel() {
         // Scene
         const scene = new THREE.Scene();
 
-        // Camera
+        // Camera — pull back on mobile so the model appears smaller
+        const isMobile = window.innerWidth < 768;
         const camera = new THREE.PerspectiveCamera(30, w / h, 0.1, 100);
-        camera.position.set(0, 0.8, 4);
+        camera.position.set(0, 0.8, isMobile ? 7 : 4);
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({
@@ -125,6 +126,7 @@ export default function FooterModel() {
             const nw = r.width;
             const nh = r.height;
             camera.aspect = nw / nh;
+            camera.position.z = window.innerWidth < 768 ? 7 : 4;
             camera.updateProjectionMatrix();
             renderer.setSize(nw, nh);
         };
