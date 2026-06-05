@@ -20,9 +20,13 @@ export default function Header() {
   const openCount = useRef(0);
   const [mountKey, setMountKey] = useState(0);
 
+  const [isOpen, setIsOpen] = useState(true);
+
   useEffect(() => {
     const update = () => {
       const now = new Date();
+      const h = now.getHours();
+      setIsOpen(h >= 9 && h < 18);
       setTime(
         now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
       );
@@ -54,8 +58,8 @@ export default function Header() {
 
         <div className={styles.right}>
           <span className={styles.status}>
-            <span className={styles.dot} />
-            open
+            <span className={`${styles.dot} ${!isOpen ? styles.dotClosed : ""}`} />
+            {isOpen ? "open" : "close"}
           </span>
           <span className={styles.time}>{time}</span>
           <button

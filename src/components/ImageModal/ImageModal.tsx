@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import styles from "./ImageModal.module.css";
 
 interface ImageModalProps {
@@ -30,7 +31,7 @@ export default function ImageModal({ src, title, client, onClose }: ImageModalPr
     };
   }, [handleClose]);
 
-  return (
+  return createPortal(
     <div
       className={`${styles.overlay} ${closing ? styles.overlayClosing : ""}`}
       onClick={handleClose}
@@ -50,6 +51,7 @@ export default function ImageModal({ src, title, client, onClose }: ImageModalPr
           <span />
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
