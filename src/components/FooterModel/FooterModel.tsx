@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import {
+    Scene,
+    PerspectiveCamera,
+    WebGLRenderer,
+    AmbientLight,
+    DirectionalLight,
+    Box3,
+    Vector3,
+    Group,
+    ACESFilmicToneMapping
+} from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import styles from "./FooterModel.module.css";
 
@@ -21,65 +31,63 @@ export default function FooterModel() {
         const dpr = Math.min(window.devicePixelRatio, 2);
 
         // Scene
-        const scene = new THREE.Scene();
+        const scene = new Scene();
 
         // Camera — pull back on mobile so the model appears smaller
         const isMobile = window.innerWidth < 768;
-        const camera = new THREE.PerspectiveCamera(30, w / h, 0.1, 100);
-        camera.position.set(0, 0.8, isMobile ? 7 : 4);
+        const camera = new PerspectiveCamera(30, w / h, 0.1, 100);
+        camera.position.set(0, 0.8, isMobile ? 12 : 8);
 
         // Renderer
-        const renderer = new THREE.WebGLRenderer({
+        const renderer = new WebGLRenderer({
             antialias: true,
             alpha: true
         });
         renderer.setSize(w, h);
         renderer.setPixelRatio(dpr);
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMapping = ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1;
         container.appendChild(renderer.domElement);
 
         // Lighting — dramatic portrait lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        const ambientLight = new AmbientLight(0xffffff, 0.3);
         scene.add(ambientLight);
 
-        const keyLight = new THREE.DirectionalLight(0xffeedd, 1.8);
+        const keyLight = new DirectionalLight(0xffeedd, 1.8);
         keyLight.position.set(2, 3, 4);
         scene.add(keyLight);
 
-        const fillLight = new THREE.DirectionalLight(0x8899bb, 0.6);
+        const fillLight = new DirectionalLight(0x8899bb, 0.6);
         fillLight.position.set(-3, 1, 2);
         scene.add(fillLight);
 
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        const rimLight = new DirectionalLight(0xffffff, 0.8);
         rimLight.position.set(0, 2, -3);
         scene.add(rimLight);
 
-        const bottomLight = new THREE.DirectionalLight(0x443322, 0.3);
+        const bottomLight = new DirectionalLight(0x443322, 0.3);
         bottomLight.position.set(0, -3, 1);
         scene.add(bottomLight);
 
         // Model
-        const headGroup = new THREE.Group();
+        const headGroup = new Group();
         scene.add(headGroup);
 
         const loader = new GLTFLoader();
         loader.load(
-            "/models/proportional_low_poly_man__free_download.glb",
+            "/models/simple_studio_light.glb",
             (gltf) => {
                 const model = gltf.scene;
 
                 // Center and scale
-                const box = new THREE.Box3().setFromObject(model);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
+                const box = new Box3().setFromObject(model);
+                const center = box.getCenter(new Vector3());
+                const size = box.getSize(new Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 7 / maxDim;
+                const scale = 4 / maxDim;
 
                 model.scale.setScalar(scale);
                 model.position.sub(center.multiplyScalar(scale));
-                // Shift down to show upper body, head not clipped
-                model.position.y -= size.y * scale * 0.3;
 
                 headGroup.add(model);
             },
@@ -89,8 +97,16 @@ export default function FooterModel() {
             }
         );
 
-        // Mouse tracking — relative to container
+        // Mouse tracking — only when container is in viewport
+        let isVisible = false;
+        const visibilityObserver = new IntersectionObserver(
+            ([entry]) => { isVisible = entry.isIntersecting; },
+            { threshold: 0.1 }
+        );
+        visibilityObserver.observe(container);
+
         const onMouseMove = (e: MouseEvent) => {
+            if (!isVisible) return;
             const r = container.getBoundingClientRect();
             mouse.current.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
             mouse.current.y = ((e.clientY - r.top) / r.height - 0.5) * 2;
@@ -126,13 +142,14 @@ export default function FooterModel() {
             const nw = r.width;
             const nh = r.height;
             camera.aspect = nw / nh;
-            camera.position.z = window.innerWidth < 768 ? 7 : 4;
+            camera.position.z = window.innerWidth < 768 ? 12 : 8;
             camera.updateProjectionMatrix();
             renderer.setSize(nw, nh);
         };
         window.addEventListener("resize", onResize);
 
         return () => {
+            visibilityObserver.disconnect();
             window.removeEventListener("resize", onResize);
             window.removeEventListener("mousemove", onMouseMove);
             container.removeEventListener("mouseleave", onMouseLeave);

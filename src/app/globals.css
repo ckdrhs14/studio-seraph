@@ -1,3 +1,7 @@
+html {
+    color-scheme: dark;
+}
+
 :root {
     --bg: #111;
     --text: #d2d2d2;

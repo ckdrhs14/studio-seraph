@@ -10,8 +10,6 @@ import Intersection from "@/components/Intersection/Intersection";
 import SpiralGallery from "@/components/SpiralGallery/SpiralGallery";
 import LogoRail from "@/components/LogoRail/LogoRail";
 import Footer from "@/components/Footer/Footer";
-import Cursor from "@/components/Cursor/Cursor";
-import HeroBackground from "@/components/HeroBackground/HeroBackground";
 import ChatBot from "@/components/ChatBot/ChatBot";
 
 export default function Home() {
@@ -19,8 +17,6 @@ export default function Home() {
 
   return (
     <>
-      <HeroBackground />
-      <Cursor />
       <ChatBot />
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
       <SmoothScroll enabled={loaded}>

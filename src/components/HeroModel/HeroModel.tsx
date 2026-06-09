@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, DirectionalLight, Box3, Vector3, Group, ACESFilmicToneMapping } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import styles from "./HeroModel.module.css";
 
@@ -21,40 +21,40 @@ export default function HeroModel() {
         const dpr = Math.min(window.devicePixelRatio, 2);
 
         // Scene
-        const scene = new THREE.Scene();
+        const scene = new Scene();
 
         // Camera — tight FOV to fill the frame with the model
-        const camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 1000);
+        const camera = new PerspectiveCamera(35, w / h, 0.1, 1000);
 
         // Renderer
-        const renderer = new THREE.WebGLRenderer({
+        const renderer = new WebGLRenderer({
             antialias: true,
             alpha: true
         });
         renderer.setSize(w, h);
         renderer.setPixelRatio(dpr);
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMapping = ACESFilmicToneMapping;
         renderer.toneMappingExposure = 0.9;
         container.appendChild(renderer.domElement);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
-        const dirLight = new THREE.DirectionalLight(0xf5eadf, 1.5);
+        const dirLight = new DirectionalLight(0xf5eadf, 1.5);
         dirLight.position.set(5, 8, 5);
         scene.add(dirLight);
 
-        const fillLight = new THREE.DirectionalLight(0x8899aa, 0.5);
+        const fillLight = new DirectionalLight(0x8899aa, 0.5);
         fillLight.position.set(-5, 2, -5);
         scene.add(fillLight);
 
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.3);
+        const rimLight = new DirectionalLight(0xffffff, 0.3);
         rimLight.position.set(0, 5, -8);
         scene.add(rimLight);
 
         // Model group for rotation
-        const modelGroup = new THREE.Group();
+        const modelGroup = new Group();
         scene.add(modelGroup);
 
         // Load GLB
@@ -65,9 +65,9 @@ export default function HeroModel() {
                 const model = gltf.scene;
 
                 // Center model
-                const box = new THREE.Box3().setFromObject(model);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
+                const box = new Box3().setFromObject(model);
+                const center = box.getCenter(new Vector3());
+                const size = box.getSize(new Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
 
                 // Scale to fill view

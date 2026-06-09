@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import styles from "./ChatBot.module.css";
+
+const ChatBotTrigger = dynamic(() => import("./ChatBotTrigger"), { ssr: false });
 
 interface Attachment {
     name: string;
@@ -203,23 +206,8 @@ export default function ChatBot() {
 
     return (
         <>
-            {/* Floating trigger button */}
-            {!open && (
-                <button className={styles.trigger} onClick={() => setOpen(true)}>
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                </button>
-            )}
+            {/* Floating 3D robot trigger — always mounted, hidden when modal open */}
+            <ChatBotTrigger onClick={() => setOpen(true)} hidden={open || closing} />
 
             {/* Chat modal */}
             {open && (

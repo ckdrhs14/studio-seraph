@@ -77,7 +77,7 @@ export default function Intersection() {
     );
 
     return (
-        <section ref={sectionRef} className={styles.intersection}>
+        <section ref={sectionRef} className={styles.intersection} data-theme-trigger>
             <PixelText className={styles.headingWrap} trigger="inview" duration={1400} delay={100} startPixel={45}>
                 <h2 className={styles.heading}>
                     PHOTO, TECHNOLOGY,
@@ -89,7 +89,7 @@ export default function Intersection() {
             <div className={styles.content}>
                 <div className={styles.imageWrap}>
                     <div className={styles.imageInner}>
-                        <video className={styles.video} src="/mp4/main-video2.mp4" autoPlay loop muted playsInline />
+                        <video className={styles.video} src="/mp4/main-video2.mp4" autoPlay loop muted playsInline preload="metadata" />
                     </div>
                 </div>
 

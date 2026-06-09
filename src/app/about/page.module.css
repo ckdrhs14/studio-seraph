@@ -1,0 +1,393 @@
+.page {
+    min-height: 100vh;
+    background: transparent;
+    color: var(--text);
+}
+
+.below {
+    position: relative;
+    z-index: 1;
+    margin-top: 100vh;
+    padding-top: 60px;
+}
+
+.wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1;
+}
+
+.belowBg {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    z-index: 0;
+}
+
+/* ─── Section 1: Intro ─── */
+.intro {
+    position: relative;
+    z-index: 1;
+    padding: 8vw 3.33vw;
+}
+
+.introInner {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.label {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 2vw;
+}
+
+.introTitle {
+    font-size: 3.5vw;
+    font-weight: 800;
+    line-height: 140%;
+    letter-spacing: -0.05vw;
+    color: var(--text);
+    margin-bottom: 2vw;
+}
+
+.introDesc {
+    font-size: 1.04vw;
+    line-height: 180%;
+    opacity: 0.7;
+    max-width: 640px;
+    margin-bottom: 5vw;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2vw;
+    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+    padding-top: 3vw;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+}
+
+.statNum {
+    font-size: 3.5vw;
+    font-weight: 800;
+    letter-spacing: -0.08vw;
+    line-height: 100%;
+    color: var(--accent);
+}
+
+.statLabel {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+.statDesc {
+    font-size: 0.85vw;
+    opacity: 0.5;
+}
+
+/* ─── Section 2: Services ─── */
+.services {
+    position: relative;
+    z-index: 1;
+    padding: 8vw 3.33vw;
+}
+
+.servicesInner {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.servicesHeader {
+    margin-bottom: 4vw;
+}
+
+.servicesTitle {
+    font-size: 5vw;
+    font-weight: 800;
+    letter-spacing: -0.1vw;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.servicesList {
+    border-top: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+.serviceItem {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2vw;
+    padding: 2.5vw 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.serviceItem:hover {
+    transform: translateX(1vw);
+}
+
+.serviceNum {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    opacity: 0.3;
+    padding-top: 0.3vw;
+}
+
+.serviceContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+}
+
+.serviceTitle {
+    font-size: 2.5vw;
+    font-weight: 800;
+    letter-spacing: -0.05vw;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+.serviceItem:hover .serviceTitle {
+    color: var(--accent);
+}
+
+.serviceSubtitle {
+    font-family: var(--font-mono);
+    font-size: 0.75vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    opacity: 0.4;
+}
+
+.serviceDesc {
+    font-size: 0.94vw;
+    line-height: 170%;
+    opacity: 0.6;
+    max-width: 600px;
+}
+
+/* ─── Section 3: Process & Contact ─── */
+.process {
+    position: relative;
+    z-index: 1;
+    padding: 8vw 3.33vw;
+}
+
+.processInner {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.processGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+    margin-bottom: 8vw;
+}
+
+.processLeft {
+    position: sticky;
+    top: 20vh;
+    align-self: start;
+}
+
+.processTitle {
+    font-size: 5vw;
+    font-weight: 800;
+    letter-spacing: -0.1vw;
+    line-height: 110%;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.processRight {
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+}
+
+.step {
+    display: flex;
+    gap: 2vw;
+    padding-bottom: 3vw;
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.step:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stepNum {
+    font-family: var(--font-mono);
+    font-size: 2vw;
+    font-weight: 800;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 3vw;
+}
+
+.stepTitle {
+    font-size: 1.25vw;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5vw;
+}
+
+.stepDesc {
+    font-size: 0.94vw;
+    line-height: 170%;
+    opacity: 0.6;
+}
+
+/* Contact bar */
+.contact {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2vw;
+    padding-top: 4vw;
+    border-top: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+.contactItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+}
+
+.contactLabel {
+    font-family: var(--font-mono);
+    font-size: 0.65vw;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    opacity: 0.3;
+}
+
+.contactValue {
+    font-size: 0.85vw;
+    line-height: 150%;
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+a.contactValue:hover {
+    color: var(--accent);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+    .label {
+        font-size: 2.5vw;
+    }
+
+    .introTitle {
+        font-size: 7vw;
+    }
+
+    .introDesc {
+        font-size: 3.2vw;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6vw;
+    }
+
+    .statNum {
+        font-size: 8vw;
+    }
+
+    .statLabel {
+        font-size: 2.5vw;
+    }
+
+    .statDesc {
+        font-size: 2.8vw;
+    }
+
+    .servicesTitle,
+    .processTitle {
+        font-size: 10vw;
+    }
+
+    .serviceItem {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .serviceTitle {
+        font-size: 5.5vw;
+    }
+
+    .serviceSubtitle {
+        font-size: 2.5vw;
+    }
+
+    .serviceDesc {
+        font-size: 3.2vw;
+    }
+
+    .serviceNum {
+        font-size: 2.5vw;
+    }
+
+    .processGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .processLeft {
+        position: relative;
+        top: 0;
+    }
+
+    .stepNum {
+        font-size: 5vw;
+        width: 8vw;
+    }
+
+    .stepTitle {
+        font-size: 4vw;
+    }
+
+    .stepDesc {
+        font-size: 3.2vw;
+    }
+
+    .contact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4vw;
+    }
+
+    .contactLabel {
+        font-size: 2.2vw;
+    }
+
+    .contactValue {
+        font-size: 2.8vw;
+    }
+}

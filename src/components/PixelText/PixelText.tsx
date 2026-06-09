@@ -68,7 +68,7 @@ export default function PixelText({
     if (testCtx) {
       const data = testCtx.getImageData(0, 0, srcCanvas.width, srcCanvas.height).data;
       let hasPixels = false;
-      for (let i = 3; i < data.length; i += 16) {
+      for (let i = 3; i < data.length; i += 64) {
         if (data[i] > 0) { hasPixels = true; break; }
       }
       if (!hasPixels) {

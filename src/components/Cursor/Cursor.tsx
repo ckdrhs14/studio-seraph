@@ -53,13 +53,16 @@ export default function Cursor() {
     document.addEventListener("mouseleave", onLeave);
 
     let targets = addHoverListeners();
-    const rescan = setInterval(() => {
+
+    // Use MutationObserver instead of setInterval for rescan
+    const observer = new MutationObserver(() => {
       targets.forEach((el) => {
         el.removeEventListener("mouseenter", onOverInteractive);
         el.removeEventListener("mouseleave", onOutInteractive);
       });
       targets = addHoverListeners();
-    }, 2000);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     const tick = () => {
       const ring = ringRef.current;
@@ -120,7 +123,7 @@ export default function Cursor() {
         el.removeEventListener("mouseenter", onOverInteractive);
         el.removeEventListener("mouseleave", onOutInteractive);
       });
-      clearInterval(rescan);
+      observer.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

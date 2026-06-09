@@ -6,9 +6,9 @@ import styles from "./Header.module.css";
 
 const NAV_ITEMS = [
   { label: "home", href: "/" },
-  { label: "about us", href: "/studio" },
+  { label: "about us", href: "/about" },
   { label: "projects", href: "/projects" },
-  { label: "labs", href: "/research" },
+  { label: "labs", href: "/labs" },
   { label: "contact", href: "/contact" },
 ];
 

@@ -1,0 +1,19 @@
+.section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #87ceeb;
+    z-index: 0;
+}
+
+.canvas {
+    position: absolute;
+    inset: 0;
+}
+
+.canvas canvas {
+    visibility: hidden;
+}

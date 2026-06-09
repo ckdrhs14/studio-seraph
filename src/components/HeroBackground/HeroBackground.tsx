@@ -77,41 +77,61 @@ export default function HeroBackground() {
         const colorState = { current: 0 }; // 0 = dark bg, 1 = light bg
 
         const draw = (time: number) => {
-            // Fade in after scrolling past hero (100vh)
             const scrollY = window.scrollY;
             const vh = window.innerHeight;
-            const targetOpacity = Math.min(Math.max((scrollY - vh * 0.5) / (vh * 0.5), 0), 1);
-            opacityRef.current += (targetOpacity - opacityRef.current) * 0.1;
-            canvas.style.opacity = String(opacityRef.current * 1);
 
-            // Color inversion: when Capabilities section enters viewport
-            const capSection = document.querySelector('[class*="intersection"]');
-            const capTop = capSection ? capSection.getBoundingClientRect().top + scrollY : vh * 6;
-            const invertStart = capTop - vh * 0.5;
-            const invertEnd = capTop;
-            const invertProgress = Math.min(Math.max((scrollY - invertStart) / (invertEnd - invertStart), 0), 1);
-            colorState.current += (invertProgress - colorState.current) * 0.08;
+            // Fade in after hero only on main page, otherwise always visible
+            const hasHero = !!document.querySelector('[data-hero-section]');
+            if (hasHero) {
+                const targetOpacity = Math.min(Math.max((scrollY - vh * 0.5) / (vh * 0.5), 0), 1);
+                opacityRef.current += (targetOpacity - opacityRef.current) * 0.1;
+            } else {
+                opacityRef.current = 1;
+            }
+            canvas.style.opacity = String(opacityRef.current);
 
-            const inv = colorState.current;
-            // Interpolate: dark(17,17,17) → white(245,245,245)
-            const bgR = Math.round(17 + (245 - 17) * inv);
-            const bgG = bgR;
-            const bgB = bgR;
-            // Lines: light(210,210,210) → dark(30,30,30)
-            const lineR = Math.round(210 + (30 - 210) * inv);
-            const lineG = lineR;
-            const lineB = lineR;
+            // Color inversion: only on pages with intersection section
+            let bgR = 17, bgG = 17, bgB = 17;
+            let lineR = 210, lineG = 210, lineB = 210;
 
-            // Update CSS variables for text/bg/accent color inversion
-            const textColor = `rgb(${lineR}, ${lineG}, ${lineB})`;
-            // accent: #E1B486(225,180,134) → dark accent #1a1a1a(26,26,26)
-            const accentR = Math.round(225 + (26 - 225) * inv);
-            const accentG = Math.round(180 + (26 - 180) * inv);
-            const accentB = Math.round(134 + (26 - 134) * inv);
+            const capSection = document.querySelector('[data-theme-trigger]');
+            if (capSection) {
+                const capTop = capSection.getBoundingClientRect().top + scrollY;
+                const invertStart = capTop - vh * 0.5;
+                const invertEnd = capTop;
+                const invertProgress = Math.min(Math.max((scrollY - invertStart) / (invertEnd - invertStart), 0), 1);
+                colorState.current += (invertProgress - colorState.current) * 0.08;
 
-            document.documentElement.style.setProperty("--text", textColor);
-            document.documentElement.style.setProperty("--bg", `rgb(${bgR}, ${bgG}, ${bgB})`);
-            document.documentElement.style.setProperty("--accent", `rgb(${accentR}, ${accentG}, ${accentB})`);
+                const inv = colorState.current;
+                bgR = Math.round(17 + (245 - 17) * inv);
+                bgG = bgR;
+                bgB = bgR;
+                lineR = Math.round(210 + (30 - 210) * inv);
+                lineG = lineR;
+                lineB = lineR;
+
+                const textColor = `rgb(${lineR}, ${lineG}, ${lineB})`;
+                const accentR = Math.round(225 + (26 - 225) * inv);
+                const accentG = Math.round(180 + (26 - 180) * inv);
+                const accentB = Math.round(134 + (26 - 134) * inv);
+
+                document.documentElement.style.setProperty("--text", textColor);
+                document.documentElement.style.setProperty("--bg", `rgb(${bgR}, ${bgG}, ${bgB})`);
+                document.documentElement.style.setProperty("--accent", `rgb(${accentR}, ${accentG}, ${accentB})`);
+            } else {
+                // Read CSS vars for pages that manage their own theme (e.g. about)
+                const root = document.documentElement;
+                const bgVal = root.style.getPropertyValue("--bg");
+                const textVal = root.style.getPropertyValue("--text");
+                if (bgVal) {
+                    const m = bgVal.match(/(\d+)/g);
+                    if (m) { bgR = +m[0]; bgG = +m[1]; bgB = +m[2]; }
+                }
+                if (textVal) {
+                    const m = textVal.match(/(\d+)/g);
+                    if (m) { lineR = +m[0]; lineG = +m[1]; lineB = +m[2]; }
+                }
+            }
 
             // Fill background
             ctx.fillStyle = `rgb(${bgR}, ${bgG}, ${bgB})`;

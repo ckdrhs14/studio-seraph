@@ -3,8 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
 import PixelText from "@/components/PixelText/PixelText";
-import HeroModel from "@/components/HeroModel/HeroModel";
+
+const HeroModel = dynamic(() => import("@/components/HeroModel/HeroModel"), {
+  ssr: false,
+});
 
 import styles from "./Hero.module.css";
 
@@ -61,7 +65,7 @@ export default function Hero({ loaded = false }: HeroProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.hero}>
+    <section ref={sectionRef} className={styles.hero} data-hero-section>
       <HeroModel />
       <div ref={innerRef} className={styles.inner}>
         {loaded && (

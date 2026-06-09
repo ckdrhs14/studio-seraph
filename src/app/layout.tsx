@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Cursor from "@/components/Cursor/Cursor";
+import HeroBackground from "@/components/HeroBackground/HeroBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,12 +27,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#111111" />
+        <style dangerouslySetInnerHTML={{ __html: `html,body{background:#111!important}` }} />
+      </head>
       <body>
         <script
           dangerouslySetInnerHTML={{
             __html: `if('scrollRestoration' in history) history.scrollRestoration = 'manual'; window.scrollTo(0,0);`,
           }}
         />
+        <HeroBackground />
+        <Cursor />
         {children}
       </body>
     </html>

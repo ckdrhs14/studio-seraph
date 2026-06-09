@@ -1,14 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import PixelText from "@/components/PixelText/PixelText";
-import FooterModel from "@/components/FooterModel/FooterModel";
+
+const FooterModel = dynamic(() => import("@/components/FooterModel/FooterModel"), {
+  ssr: false,
+});
 import styles from "./Footer.module.css";
 
 const NAV_LINKS = [
     { label: "Home", href: "/" },
-    { label: "About Us", href: "/studio" },
+    { label: "About Us", href: "/about" },
     { label: "Projects", href: "/projects" },
-    { label: "Labs", href: "/research" },
+    { label: "Labs", href: "/labs" },
     { label: "Contact", href: "/contact" }
 ];
 
