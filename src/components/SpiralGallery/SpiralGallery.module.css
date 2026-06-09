@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     will-change: transform, opacity;
-
+    overflow: visible;
 }
 
 .bigTitle {
@@ -23,6 +23,14 @@
     text-align: center;
     color: var(--text);
     width: 100%;
+}
+
+.line {
+    display: block;
+}
+
+.char {
+    will-change: transform, opacity;
 }
 
 /* Gallery screen */

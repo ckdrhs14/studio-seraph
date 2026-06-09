@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.wrapperDone {
+  overflow: visible;
+}
+
 .canvas {
   position: absolute;
   top: 0;

@@ -1,8 +1,16 @@
 import { streamText } from "ai";
 import { createGroq } from "@ai-sdk/groq";
 
+// CJK Unified Ideographs, Extension A/B, Compatibility, Hiragana, Katakana
+const CJK_REGEX =
+    /[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\u{20000}-\u{2A6DF}\u{2A700}-\u{2B73F}]/gu;
+
+function stripCJK(text: string): string {
+    return text.replace(CJK_REGEX, "");
+}
+
 const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
+    apiKey: process.env.GROQ_API_KEY
 });
 
 const SYSTEM_PROMPT = `당신은 "스튜디오 서랍(Studio Seraph)" 포트폴리오 웹사이트의 AI 어시스턴트입니다.
@@ -80,6 +88,7 @@ const SYSTEM_PROMPT = `당신은 "스튜디오 서랍(Studio Seraph)" 포트폴�
 
 [중요 규칙 - 반드시 지켜야 합니다]
 - 반드시 한국어(한글)로만 답변하세요. 이것은 가장 중요한 규칙입니다.
+- 한국어를 제외한 언어는 절대 사용하지 마세요. (영어는 가능합니다.)
 - 한자(漢字)를 절대 사용하지 마세요. 예: 項目, 技術, 經驗, 時間, 家族, 寫眞 같은 글자를 절대 쓰지 마세요.
 - 중국어 간체(简体)도 절대 사용하지 마세요. 예: 项目, 技术, 经验 같은 글자를 절대 쓰지 마세요.
 - 일본어(ひらがな, カタカナ, 漢字)도 절대 사용하지 마세요.
@@ -89,13 +98,50 @@ const SYSTEM_PROMPT = `당신은 "스튜디오 서랍(Studio Seraph)" 포트폴�
 - 가격에 대해 질문받으면, 구체적인 가격은 전화 또는 카카오톡으로 문의해달라고 안내하세요.`;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+    const { messages } = await req.json();
 
-  const result = await streamText({
-    model: groq("llama-3.3-70b-versatile"),
-    system: SYSTEM_PROMPT,
-    messages,
-  });
+    const result = await streamText({
+        model: groq("llama-3.3-70b-versatile"),
+        system: SYSTEM_PROMPT,
+        messages
+    });
 
-  return result.toUIMessageStreamResponse();
+    // Build SSE stream with CJK characters filtered out
+    const encoder = new TextEncoder();
+    const textStream = result.textStream;
+
+    const sseStream = new ReadableStream({
+        async start(controller) {
+            let id = "msg-" + Date.now();
+            // Send message start
+            controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify({ type: "text-start", id })}\n\n`)
+            );
+            for await (const chunk of textStream) {
+                const cleaned = stripCJK(chunk);
+                if (cleaned) {
+                    controller.enqueue(
+                        encoder.encode(
+                            `data: ${JSON.stringify({ type: "text-delta", delta: cleaned })}\n\n`
+                        )
+                    );
+                }
+            }
+            // Send finish
+            controller.enqueue(
+                encoder.encode(
+                    `data: ${JSON.stringify({ type: "finish", finishReason: "stop" })}\n\n`
+                )
+            );
+            controller.close();
+        }
+    });
+
+    return new Response(sseStream, {
+        headers: {
+            "Content-Type": "text/event-stream; charset=utf-8",
+            "Cache-Control": "no-cache",
+            Connection: "keep-alive"
+        }
+    });
 }

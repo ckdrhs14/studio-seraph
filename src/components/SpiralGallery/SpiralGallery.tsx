@@ -60,18 +60,43 @@ export default function SpiralGallery() {
         if (!cylinder || !section || !title || !gallery) return;
 
         const ctx = gsap.context(() => {
-            // Pin title, hold, then fade as gallery approaches
-            ScrollTrigger.create({
+            // Pin title, hold, then scatter letters as gallery approaches
+            const chars = title.querySelectorAll(`.${styles.char}`);
+            const tl = gsap.timeline();
+
+            // Phase 1: hold visible
+            tl.to(title, { opacity: 1, duration: 0.4, ease: "none" });
+
+            // Phase 2: scatter each character
+            tl.to(
+                chars,
+                {
+                    y: () => gsap.utils.random(-200, 200),
+                    x: () => gsap.utils.random(-300, 300),
+                    rotateZ: () => gsap.utils.random(-90, 90),
+                    opacity: 0,
+                    scale: () => gsap.utils.random(0.3, 1.5),
+                    duration: 0.6,
+                    ease: "power2.in",
+                    stagger: { each: 0.02, from: "center" }
+                }
+            );
+
+            const titleST = ScrollTrigger.create({
                 trigger: title,
                 start: "top top",
                 end: "+=100%",
                 pin: true,
                 pinSpacing: true,
                 scrub: true,
-                animation: gsap
-                    .timeline()
-                    .to(title, { opacity: 1, scale: 1, duration: 0.6, ease: "none" })
-                    .to(title, { opacity: 0, scale: 0.92, duration: 0.4, ease: "none" })
+                anticipatePin: 1,
+                animation: tl,
+                onRefresh: (self) => {
+                    const spacer = (self as unknown as { spacer?: HTMLElement }).spacer;
+                    if (spacer) {
+                        spacer.style.overflow = "visible";
+                    }
+                }
             });
 
             // Gallery pin + rotate
@@ -150,7 +175,17 @@ export default function SpiralGallery() {
                 {/* Title screen — pins and fades out */}
                 <div ref={titleRef} className={styles.titleScreen}>
                     <PixelText trigger="inview" duration={1400} startPixel={45}>
-                        <h2 className={styles.bigTitle}>MEET OUR PROJECTS</h2>
+                        <h2 className={styles.bigTitle}>
+                            {["MEET OUR", "PROJECTS"].map((line, li) => (
+                                <span key={li} className={styles.line}>
+                                    {line.split("").map((ch, ci) => (
+                                        <span key={`${li}-${ci}`} className={styles.char} style={{ display: ch === " " ? "inline" : "inline-block" }}>
+                                            {ch === " " ? "\u00A0" : ch}
+                                        </span>
+                                    ))}
+                                </span>
+                            ))}
+                        </h2>
                     </PixelText>
                 </div>
 

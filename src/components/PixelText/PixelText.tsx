@@ -116,6 +116,7 @@ export default function PixelText({
         // Show real DOM text behind, then instantly remove canvas
         content.classList.add(styles.visible);
         canvas.style.display = "none";
+        wrapperRef.current?.classList.add(styles.wrapperDone);
         return;
       }
 
