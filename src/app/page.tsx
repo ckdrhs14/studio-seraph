@@ -12,6 +12,7 @@ import LogoRail from "@/components/LogoRail/LogoRail";
 import Footer from "@/components/Footer/Footer";
 import Cursor from "@/components/Cursor/Cursor";
 import HeroBackground from "@/components/HeroBackground/HeroBackground";
+import ChatBot from "@/components/ChatBot/ChatBot";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -20,6 +21,7 @@ export default function Home() {
     <>
       <HeroBackground />
       <Cursor />
+      <ChatBot />
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
       <SmoothScroll enabled={loaded}>
         <Header />
